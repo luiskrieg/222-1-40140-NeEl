@@ -1,0 +1,2 @@
+print("Flask work instructions")
+
