@@ -1,0 +1,17 @@
+from werkzeug.exceptions import BadGateway
+
+
+print("Flask work instructions")
+
+For activate the venv I need: 
+    > cd venv\Scripts\actiate.bat
+For deactivate venv, I need: 
+    > cd venv/Scripts/deactivate.bat 
+
+For run app.py I need:
+    > python app.py 
+
+For test if flask server is running: 
+    > http://127.0.0.1:5000/
+
+
