@@ -33,8 +33,53 @@ def index():
 
 @app.route('/create_student/', methods=['POST'])
 def create_student():
-    return "student created"
+    name = request.json['name']
+    career = request.json['career']
+    #print(name)
+    #print(career)
+    new_student = Student(name, career)
+    #print(new_student)
 
+    database.session.add(new_student)
+    database.session.commit()
+
+    #return "student created 102621"
+
+    return student_schema.jsonify(new_student)
+
+@app.route('/students/', methods=['GET'])
+def get_students():
+    all_students = Student.query.all()
+    result = students_schema.dump(all_students)
+    #return "Getting all students"
+    return jsonify(result)
+
+@app.route('/students/<id>', methods=['GET'])
+def get_student(id):
+    student = Student.query.get(id)
+    #return id
+    return student_schema.jsonify(student)
+
+#######################################################
+
+@app.route('/update_student/<id>', methods=['PUT'])
+def update_student(id):
+    student = Student.query.get(id)
+    name = request.json['name']
+    career = request.json['career']
+    #print(name + " " + career)
+    student.name = name
+    student.career = career
+    database.session.commit()
+    return student_schema.jsonify(student)
+
+#######################################################
+@app.route('/delete_student/<id>', methods=['DELETE'])
+def delete_student(id):
+  student = Student.query.get(id)
+  database.session.delete(student)
+  database.session.commit()
+  return student_schema.jsonify(student)
 
 if __name__ == "__main__":
     app.run(debug=True)
